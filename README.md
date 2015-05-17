@@ -61,7 +61,7 @@ $chart = new Chart(array(
 Finally Call the drawPie method to draw Pie Graph
 ```
 $chart->drawPie();
-`````
+```
 ### Example ###
 A simple PIe Graph
 ![Pie Graph](https://raw.githubusercontent.com/merajsiddiqui/PHPChart/master/example_pie.png?raw=true)
@@ -97,7 +97,7 @@ $chart = new Chart(array(
 Finally Call the drawLine method to draw Pie Graph
 ```
 $chart->drawLine();
-
+```
 ### Example ###
 A simple Line Graph
 ![Line Graph](https://raw.githubusercontent.com/merajsiddiqui/PHPChart/master/exampl_line.png)
