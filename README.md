@@ -64,7 +64,7 @@ $chart->drawPie();
 
 ### Example ###
 A simple PIe Graph
-![Pie Graph](https://raw.githubusercontent.com/merajsiddiqui/PHPChart/master/example_pie.png)
+![Pie Graph](https://raw.githubusercontent.com/merajsiddiqui/PHPChart/master/example_pie.png?raw=true)
 
 
 
