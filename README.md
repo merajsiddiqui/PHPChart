@@ -64,7 +64,9 @@ $chart->drawPie();
 
 ### Example ###
 A simple PIe Graph
-![Pie Graph](https://github.com/merajsiddiqui/PHPChart/blob/master/example_pie.png?raw=true)
+![Pie Graph]https://raw.githubusercontent.com/merajsiddiqui/PHPChart/master/example_pie.png)
+
+
 
 ### How to Use ###
 Include the Chart Class
@@ -73,6 +75,7 @@ include 'Chart.php';
 ```
 
 Initialize the Class by adding Data to show in Array
+
 ```
 $chart = new Chart(array(
     "Jan" => 110,
@@ -96,4 +99,4 @@ $chart->drawLine();
 
 ### Example ###
 A simple Line Graph
-![Line Graph](https://github.com/merajsiddiqui/PHPChart/blob/master/example_line.png?raw=true)
+![Line Graph](https://raw.githubusercontent.com/merajsiddiqui/PHPChart/master/exampl_line.png)
