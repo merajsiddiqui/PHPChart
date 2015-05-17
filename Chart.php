@@ -103,7 +103,7 @@ class Chart {
 
        return $this->img= $img;
     }
-    function drawLine($img_width = 500, $img_height = 500, $margins = 20, $lines=20)
+    function drawLine($multiline='f',$comp=3, $img_width = 500, $img_height = 500, $margins = 20, $lines=20)
     {
       $img = imagecreate($img_width, $img_height);
       $bar_color = imagecolorallocate($img, 0, 64, 128);
@@ -159,7 +159,87 @@ class Chart {
         }
        return $this->img= $img;
     }
+    function drawmultiLine($img_width = 500, $img_height = 500, $margins = 20, $lines=20, $comp=3)
+ {
+      $img = imagecreate($img_width, $img_height);
+      $bar_color = imagecolorallocate($img, 0, 64, 128);
+      $background_color = imagecolorallocate($img, 240, 240, 255);
+      $border_color = imagecolorallocate($img, 200, 200, 200);
+      $line_color = imagecolorallocate($img, 220, 220, 220);
+      $graph_width = $this->automargin($img_width, $margins);
+        $graph_height = $this->automargin($img_height, $margins);
+        $red = imagecolorallocate($img, 255, 0, 0);
+        $green= imagecolorallocate($img, 0, 150, 0);
+        $another =imagecolorallocate($img, 11, 150, 110);
+        $lcolor = array($bar_color, $green, $red, $another);
 
+      $total = count($this->data);
+      $gap = ($graph_width - $total * $this->barWidth ) / ($total + 1);
+      //Create the border around the graph
+        imagefilledrectangle($img, 1, 1, $img_width - 2, $img_height - 2, $border_color);
+        imagefilledrectangle($img, $margins, $margins, $img_width - 1 - $margins, $img_height - 1 - $margins, $background_color);
+      $key= array();
+            $key = array_keys($this->data); 
+
+        $keys2 = array();
+        for($i=0;$i<=$comp; $i++){
+        $keys2 = array_keys($this->data[key($this->data)]);
+        }
+
+        $final = array();
+        for($i=0; $i<count($this->data); $i++){
+        for($j=0; $j<count($keys2); $j++){
+        $final[]= $this->data[$key[$i]][$keys2[$j]];
+        }
+        }
+        
+        //Max value is required to adjust the scale
+        $max_value = max($final);
+        $ratio = $graph_height / $max_value;
+
+        //Creating scale and draw horizontal lines
+        $horizontal_lines =$lines;
+        $horizontal_gap = $graph_height / $horizontal_lines;
+
+        for ($i = 1; $i <= $horizontal_lines; $i++) {
+            $y = $img_height - $margins - $horizontal_gap * $i;
+            imageline($img, $margins, $y, $img_width - $margins, $y, $line_color);
+            $v = intval($horizontal_gap * $i / $ratio);
+            imagestring($img, 0, 5, $y - 5, $v, $bar_color);
+        }
+        //drawing graph
+        $x=$margins + $gap;
+         
+        for($ab= 0; $ab<count($keys2);$ab++){
+            $x=$margins + $gap;
+            $begin_val = array_values($this->data)[0][$keys2[$ab]];
+            $y=$margins + $graph_height - intval($begin_val* $ratio);
+            imagestring($img, 5, $margins + 5, $y, $keys2[$ab], $lcolor[$ab]);
+         for ($i = 0; $i < $total; $i++) {
+            # ------ Extract key and value pair from the current pointer position
+            
+
+            $x1 = $margins + $gap + $i * ($gap + $this->barWidth);
+            $value =$this->data[$key[$i]][$keys2[$ab]];
+            $y1 = $margins + $graph_height - intval($value * $ratio);
+            imagestring($img, 5, $x1 + 5, $y1+5, $value, $lcolor[$ab]);
+            /*
+            $sign= ($last_val<$value) ? "+" :"-";
+            $change_color = ($last_val<$value) ? $green : $red;
+            $num = abs(($last_val-$value)*100/$last_val);
+            $change = ($i!=0) ? $sign.number_format($num, 2)."%" : "";
+            imagestring($img, 5, $x1-10, $y1+20, $change, $change_color);
+            */
+            imagestring($img, 5, $x1 -5, $img_height -20, $key[$i], $bar_color);
+            imageline ($img , $x, $y, $x1 , $y1 ,$lcolor[$ab]);
+            imagefilledarc($img, $x1, $y1, 10, 10, 0, 360, $lcolor[$ab], IMG_ARC_PIE);
+            $x=$x1;
+            $y=$y1;
+        }
+
+    }
+       return $this->img= $img;
+    }
     /**
      * Adjust Margin for graphs
      * @param type $length
@@ -171,7 +251,7 @@ class Chart {
     }
 
     function __destruct() {
- header("Content-type:image/png");
+header("Content-type:image/png");
         imagepng($this->img);
     }
 
