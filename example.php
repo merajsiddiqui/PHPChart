@@ -17,4 +17,7 @@ $chart = new Chart(array(
     "Dec" => 196
 ));
 
-$chart->drawBar(800, 400);
+//$chart->drawBar(800, 400);
+//$chart->drawPie();
+$chart->drawLine(800,800);
+?>
