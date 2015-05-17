@@ -94,7 +94,7 @@ $chart = new Chart(array(
 ));
 ```
 
-Finally Call the drawLine method to draw Pie Graph
+Finally Call the drawLine method to draw Line Graph
 ```
 $chart->drawLine();
 ```
@@ -121,7 +121,7 @@ $chart = new Chart(array(
 ));
 ```
 
-Finally Call the drawLine method to draw Pie Graph
+Finally Call the drawmultiLine method to draw multiLine Graph
 ```
 $chart->drawmultiLine();
 ```
