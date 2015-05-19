@@ -98,6 +98,10 @@ class Chart {
         //length of chord = 2rsin(c/2)
         for($i=0; $i<$total_sectors; $i++){
             imagefilledarc($img, $img_width/2, $img_height/2, $img_width, $img_height, $angle_sum[$i-1], $angle_sum[$i], $bg_color[$i], IMG_ARC_PIE);
+         $xtext = ($img_width-250)*( cos($angle_sum[$i-1]) + cos($angle_sum[$i]))/2;
+            $ytext = ($img_height-250)*( sin($angle_sum[$i-1]) + sin($angle_sum[$i]))/2;
+            imagestring($img, 5, $xtext-20, $ytext, $key.'->'.$valu, $txtcolor[$i]);  
+            
         }
         //end of sectors
 
